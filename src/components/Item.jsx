@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useListContext } from '../context/ListContext';
 
 export default function Item({ item }) {
@@ -32,17 +32,18 @@ export default function Item({ item }) {
   //   XXXXXXXXXX;
   // };
   const handleToggle = () => {
-    if (!item.complete) {
+    handleComplete({ id: item.id, complete: !item.complete });
+  };
+  useEffect(() => {
+    if (item.complete) {
       setStatus('line-through');
     } else {
       setStatus('none');
     }
-    handleComplete({ id: item.id, complete: !item.complete });
-  };
+  }, [item.complete]);
 
   if (editing) {
     content = (
-      // <h3>editing</h3>
       <>
         <input
           value={modText}
@@ -54,14 +55,30 @@ export default function Item({ item }) {
   } else {
     content = (
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <input type={'checkbox'} onClick={handleToggle}></input>
+        {item.complete ? (
+          <input
+            aria-label={`${item.item} checked`}
+            type={'checkbox'}
+            onClick={handleToggle}
+            checked
+          ></input>
+        ) : (
+          <input
+            aria-label={`${item.item} not-checked`}
+            type={'checkbox'}
+            onClick={handleToggle}
+          ></input>
+        )}
         <h3 style={{ textDecoration: `${status}`, marginLeft: '15px' }}>
           {item.item}
         </h3>
-        <button style={{ marginLeft: '15px' }} onClick={editBtn}>
+        <button
+          aria-label={`button to edit ${item.item}`}
+          style={{ marginLeft: '15px' }}
+          onClick={editBtn}
+        >
           edit
         </button>
-        {/* <button onClick={setEditing(true)}>edit</button> */}
       </div>
     );
   }
@@ -70,10 +87,11 @@ export default function Item({ item }) {
     <div style={{ display: 'flex' }}>
       {content}
       <button
+        aria-label={`button to delete ${item.item}`}
         style={{ marginLeft: '15px', marginTop: '17px', height: '25px' }}
         onClick={() => handleDeleteItem(item.id)}
       >
-        delete {item.id}
+        delete
       </button>
     </div>
   );

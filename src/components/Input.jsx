@@ -12,10 +12,13 @@ export default function Input() {
   return (
     <>
       <input
+        aria-label="add item"
         value={addItem}
         onChange={(e) => setAddItem(e.target.value)}
       ></input>
-      <button onClick={addItemBtn}>Add to List</button>
+      <button aria-label="submit new item" onClick={addItemBtn}>
+        Add to List
+      </button>
     </>
   );
 }

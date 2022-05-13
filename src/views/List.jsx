@@ -14,7 +14,7 @@ export default function List() {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <h3>Your List</h3>
+      <h1 style={{ marginTop: '50px' }}>Your List</h1>
       <Input />
       <ul
         style={{
