@@ -13,17 +13,24 @@ export default function List() {
   // }, [state])
 
   return (
-    <>
+    <div style={{ textAlign: 'center' }}>
       <h3>Your List</h3>
       <Input />
-      <ul>
+      <ul
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          listStyle: 'none',
+          alignItems: 'center',
+        }}
+      >
         {state.map((item) => (
           <li key={item.id}>
             <Item {...{ item }} />
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 
