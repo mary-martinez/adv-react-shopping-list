@@ -17,6 +17,14 @@ const ListProvider = ({ children }) => {
             return each;
           }
         }));
+      case 'TOGGLE_COMPLETE':
+        return (state.map((each) => {
+          if (each.id === action.payload.id) {
+            return { ...each, complete: action.payload.complete };
+          } else {
+            return each;
+          }
+        }));
       case 'DELETE_ITEM':
         return state.filter((each) => each.id !== action.payload.id);
       default:
@@ -28,7 +36,9 @@ const ListProvider = ({ children }) => {
   const handleAddItem = (item) => {
     dispatch({ type: 'ADD_ITEM', payload: { item } });
   };
-
+  const handleComplete = ({ id, complete }) => {
+    dispatch({ type: 'TOGGLE_COMPLETE', payload: { id, complete } });
+  };
   const handleEditItem = ({ id, item }) => {
     dispatch({ type: 'EDIT_ITEM', payload: { id, item } });
   };
@@ -36,7 +46,7 @@ const ListProvider = ({ children }) => {
     dispatch({ type: 'DELETE_ITEM', payload: { id } });
   };
 
-  return (<ListContext.Provider value={{ state, handleAddItem, handleDeleteItem, handleEditItem }}>{children}</ListContext.Provider>);
+  return (<ListContext.Provider value={{ state, handleAddItem, handleDeleteItem, handleEditItem, handleComplete }}>{children}</ListContext.Provider>);
 };
 
 const useListContext = () => {

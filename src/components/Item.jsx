@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useListContext } from '../context/ListContext';
 
 export default function Item({ item }) {
-  const { handleEditItem, handleDeleteItem } = useListContext();
+  const { handleEditItem, handleDeleteItem, handleComplete } = useListContext();
   const [modText, setModText] = useState('');
   const [editing, setEditing] = useState(false);
+  const [status, setStatus] = useState('');
 
   // const deleteBtn = () => {
   //   handleDeleteItem()
@@ -27,6 +28,17 @@ export default function Item({ item }) {
 
     setEditing(true);
   };
+  // const checkOff = () => {
+  //   XXXXXXXXXX;
+  // };
+  const handleToggle = () => {
+    if (!item.complete) {
+      setStatus('line-through');
+    } else {
+      setStatus('none');
+    }
+    handleComplete({ id: item.id, complete: !item.complete });
+  };
 
   if (editing) {
     content = (
@@ -41,18 +53,26 @@ export default function Item({ item }) {
     );
   } else {
     content = (
-      <>
-        <h3>{item.item}</h3>
-        <button onClick={editBtn}>edit</button>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <input type={'checkbox'} onClick={handleToggle}></input>
+        <h3 style={{ textDecoration: `${status}`, marginLeft: '15px' }}>
+          {item.item}
+        </h3>
+        <button style={{ marginLeft: '15px' }} onClick={editBtn}>
+          edit
+        </button>
         {/* <button onClick={setEditing(true)}>edit</button> */}
-      </>
+      </div>
     );
   }
 
   return (
-    <div>
+    <div style={{ display: 'flex' }}>
       {content}
-      <button onClick={() => handleDeleteItem(item.id)}>
+      <button
+        style={{ marginLeft: '15px', marginTop: '17px', height: '25px' }}
+        onClick={() => handleDeleteItem(item.id)}
+      >
         delete {item.id}
       </button>
     </div>
