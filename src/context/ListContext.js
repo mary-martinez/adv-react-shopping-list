@@ -9,6 +9,8 @@ const ListProvider = ({ children }) => {
     switch (action.type) {
       case 'ADD_ITEM':
         return [...state, { id: Date.now(), item: action.payload.item, complete: false }];
+      case 'DELETE_ITEM':
+        return state.filter((each) => each.id !== action.payload.id);
       default:
         throw new Error('not a defined action');
     }
@@ -18,8 +20,11 @@ const ListProvider = ({ children }) => {
   const handleAddItem = (item) => {
     dispatch({ type: 'ADD_ITEM', payload: { item } });
   };
+  const handleDeleteItem = (id) => {
+    dispatch({ type: 'DELETE_ITEM', payload: { id } });
+  };
 
-  return (<ListContext.Provider value={{ state, handleAddItem }}>{children}</ListContext.Provider>);
+  return (<ListContext.Provider value={{ state, handleAddItem, handleDeleteItem }}>{children}</ListContext.Provider>);
 };
 
 const useListContext = () => {
