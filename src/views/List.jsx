@@ -1,11 +1,20 @@
 import React from 'react';
+import Item from '../components/Item';
+import { useListContext } from '../context/ListContext';
+
+// const initialList = [{ id: 1, item: 'bananas', complete: false }];
 
 export default function List() {
+  const { initialList } = useListContext();
   return (
     <>
       <h3>Your List</h3>
       <ul>
-        <li>Apples</li>
+        {initialList.map((item) => (
+          <li key={item.id}>
+            <Item {...{ item }} />
+          </li>
+        ))}
       </ul>
     </>
   );

@@ -1,13 +1,11 @@
 import React from 'react';
 
-export default function Item() {
-  
-  
+export default function Item({ item }) {
   return (
-    <>
-      <h3>item</h3>
+    <div>
+      <h3>{item.item}</h3>
       <button>edit</button>
       <button>delete</button>
-    </>
+    </div>
   );
 }
