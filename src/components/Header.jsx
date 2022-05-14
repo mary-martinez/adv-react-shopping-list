@@ -3,11 +3,15 @@ import { useListContext } from '../context/ListContext';
 
 export default function Header() {
   const { state } = useListContext();
-  const [remaining, setRemaining] = useState([]);
+  const [remaining, setRemaining] = useState('');
 
   useEffect(() => {
     const numRemain = state.filter((each) => each.complete === false);
-    setRemaining(numRemain);
+    if (numRemain.length === 1) {
+      setRemaining('1 item');
+    } else {
+      setRemaining(`${numRemain.length} items`);
+    }
     // console.log('numRemain', numRemain);
   }, [state]);
 
@@ -21,10 +25,15 @@ export default function Header() {
       }}
     >
       <h2 style={{ marginBottom: '5px' }}>Welcome to your shopping list!</h2>
-      <h3 style={{ marginTop: '5px', marginBottom: '30px' }}>
-        You have {state.length} items total and {remaining.length} items
-        remaining.
-      </h3>
+      {state.length === 1 ? (
+        <h3 style={{ marginTop: '5px', marginBottom: '30px' }}>
+          You have {state.length} item total and {remaining} remaining.
+        </h3>
+      ) : (
+        <h3 style={{ marginTop: '5px', marginBottom: '30px' }}>
+          You have {state.length} items total and {remaining} remaining.
+        </h3>
+      )}
     </div>
   );
 }
