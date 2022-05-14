@@ -15,6 +15,8 @@ describe('App', () => {
 
     const appleEdit = screen.getByLabelText('button to edit apple');
     expect(appleEdit).toBeInTheDocument();
+    const appleHeading = screen.getByText(/apple/i);
+    expect(appleHeading).toBeInTheDocument();
 
     userEvent.type(input, 'potatoes');
     userEvent.click(addBtn);
@@ -22,6 +24,20 @@ describe('App', () => {
     const potatoDelete = screen.getByLabelText('button to delete potatoes');
     expect(potatoDelete).toBeInTheDocument();
 
-    screen.debug();
+    userEvent.click(potatoDelete);
+    expect(potatoDelete).not.toBeInTheDocument();
+
+    userEvent.click(appleEdit);
+    expect(appleHeading).not.toBeInTheDocument();
+    const appleInput = screen.getByLabelText('editing apple');
+    expect(appleInput).toBeInTheDocument();
+    const saveBtn = screen.getByRole('button', { name: 'Save Changes' });
+    expect(saveBtn).toBeInTheDocument();
+
+    userEvent.type(appleInput, 's');
+    userEvent.click(saveBtn);
+
+    const applesHeading = screen.getByText(/apples/i);
+    expect(applesHeading).toBeInTheDocument();
   });
 });

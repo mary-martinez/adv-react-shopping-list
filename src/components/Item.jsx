@@ -46,6 +46,7 @@ export default function Item({ item }) {
     content = (
       <>
         <input
+          aria-label={`editing ${item.item}`}
           value={modText}
           onChange={(e) => setModText(e.target.value)}
         ></input>
