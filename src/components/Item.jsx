@@ -56,20 +56,13 @@ export default function Item({ item }) {
   } else {
     content = (
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        {item.complete ? (
-          <input
-            aria-label={`${item.item} checked`}
-            type={'checkbox'}
-            onClick={handleToggle}
-            checked
-          ></input>
-        ) : (
-          <input
-            aria-label={`${item.item} not-checked`}
-            type={'checkbox'}
-            onClick={handleToggle}
-          ></input>
-        )}
+        <input
+          aria-label={`${item.item} checked`}
+          type="checkbox"
+          onClick={handleToggle}
+          defaultChecked={item.complete}
+        ></input>
+
         <h3 style={{ textDecoration: `${status}`, marginLeft: '15px' }}>
           {item.item}
         </h3>
