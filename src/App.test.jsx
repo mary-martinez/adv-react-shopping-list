@@ -39,5 +39,16 @@ describe('App', () => {
 
     const applesHeading = screen.getByText(/apples/i);
     expect(applesHeading).toBeInTheDocument();
+
+    const applesCheckboxFalse = screen.getByRole('checkbox', {
+      name: 'apples completed false',
+    });
+    expect(applesCheckboxFalse).toBeInTheDocument();
+    userEvent.click(applesCheckboxFalse);
+    screen.debug();
+    const applesCheckboxTrue = screen.getByRole('checkbox', {
+      name: 'apples completed true',
+    });
+    expect(applesCheckboxTrue).toBeInTheDocument();
   });
 });

@@ -57,7 +57,7 @@ export default function Item({ item }) {
     content = (
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <input
-          aria-label={`${item.item} checked`}
+          aria-label={`${item.item} completed ${item.complete}`}
           type="checkbox"
           onClick={handleToggle}
           defaultChecked={item.complete}
