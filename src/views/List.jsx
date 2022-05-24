@@ -14,7 +14,14 @@ export default function List() {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1 style={{ marginTop: '50px' }}>Your List</h1>
+      <h1
+        style={{
+          marginTop: '50px',
+          textDecoration: 'underline',
+        }}
+      >
+        Your List
+      </h1>
       <Input />
       <ul
         style={{
@@ -22,6 +29,7 @@ export default function List() {
           flexDirection: 'column',
           listStyle: 'none',
           alignItems: 'center',
+          paddingLeft: '0px',
         }}
       >
         {state.map((item) => (

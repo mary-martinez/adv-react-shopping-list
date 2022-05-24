@@ -21,7 +21,10 @@ export default function Header() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        borderBottom: '1px solid black',
+        borderBottom: '2px solid black',
+        boxShadow: '2px 2px white',
+        color: 'white',
+        textShadow: '2px 2px hsla(0, 0, 0, 0.5)',
       }}
     >
       <h2 style={{ marginBottom: '5px' }}>Welcome to your shopping list!</h2>
